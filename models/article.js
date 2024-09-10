@@ -26,6 +26,10 @@ class ArticleModel extends BaseSQLModel {
     }
     async updateArticle(id, articleData) {
         await super.update(id, articleData);
+    }
+    async deleteArticle(id) {
+        const affectedRows = await super.delete(id);
+        return affectedRows;
     } 
 } 
 
