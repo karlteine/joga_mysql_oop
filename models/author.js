@@ -18,7 +18,7 @@ class AuthorModel extends BaseSQLModel {
     }
 
     async findArticlesByAuthor(authorId) {
-        const articles = await this.articleModel.findMany('author_id', authorId);
+        const articles = await this.articleModel.findMany(authorId);
         return articles;
     }
 }

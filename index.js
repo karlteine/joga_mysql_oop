@@ -6,6 +6,7 @@ app.use(express.json());
 const articleRoutes = require('./routes/articles');
 const authorRoutes = require('./routes/authors');  
 
+app.use(express.urlencoded({ extended: true }));
 
 app.use('/', articleRoutes); 
 app.use('/author', authorRoutes);     
