@@ -20,6 +20,11 @@ class UserModel extends BaseSQLModel {
         const [user] = await this.executeQuery(query, [userId]);
         return user;
     }
+    async findByUsername(username) {
+        const query = `SELECT * FROM ${this.tableName} WHERE username = ?`;
+        const [user] = await this.executeQuery(query, [username]);
+        return user;
+    }
 }
 
 module.exports = UserModel;
