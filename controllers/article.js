@@ -30,6 +30,22 @@ class articleController {
             message: `created article with id ${newArticle}`,
             article: {id: articleId, ...newArticle} 
         })
+    }
+    async updateArticle(req, res) {
+        try {
+            const articleId = req.params.id;
+            const articleData = req.body;
+
+            await articleModel.updateArticle(articleId, articleData);
+
+            res.status(200).json({
+                message: `Article with ID ${articleId} updated successfully.`,
+                article: { id: articleId, ...articleData }
+            });
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: 'Internal server error' });
+        }
     } 
 } 
 
