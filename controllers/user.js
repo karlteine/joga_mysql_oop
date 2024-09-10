@@ -41,6 +41,34 @@ class UserController {
             });
         }
     }
+    async login(req, res) {
+        try {
+            const { username, password } = req.body;
+
+            const user = await userModel.findByUsername(username);
+            if (!user) {
+                return res.status(401).json({ message: 'Invalid username or password' });
+            }
+
+            const isMatch = await bcrypt.compare(password, user.password);
+            if (!isMatch) {
+                return res.status(401).json({ message: 'Invalid username or password' });
+            }
+
+            req.session.user = {
+                username: user.username,
+                user_id: user.id
+            };
+
+            res.json({
+                message: 'Login successful',
+                user_session: req.session.user
+            });
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: 'Internal server error' });
+        }
+    }
 }
 
 module.exports = new UserController();
