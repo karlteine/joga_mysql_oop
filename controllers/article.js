@@ -1,5 +1,7 @@
 const articleDbModel = require('../models/article')
 const articleModel = new articleDbModel()
+const AuthorModel = require('../models/author');
+const authorModel = new AuthorModel();
 
 class articleController {
     constructor(){
@@ -7,13 +9,30 @@ class articleController {
     } 
     
     async getAllArticles(req, res) {
-        this.articles = await articleModel.findAll()
-        res.status(201).json({articles: this.articles})
+        try {
+            const articles = await articleModel.findAll();
+            res.render('index', { articles });
+        } catch (error) {
+            console.error(error);
+            res.status(500).send('Internal Server Error');
+        }
     } 
     
     async getArticleBySlug(req, res) {
-        const article = await articleModel.findOne(req.params.slug)
-        res.status(201).json({article: article})
+        try {
+            const article = await articleModel.findOne(req.params.slug);
+            if (article) {
+                const author = await authorModel.findById(article.author_id);
+                article.author_name = author ? author.name : 'Unknown Author';
+                
+                res.render('article', { article });
+            } else {
+                res.status(404).send('Article not found');
+            }
+        } catch (error) {
+            console.error('Error fetching article or author:', error);
+            res.status(500).send('Server Error');
+        }
     }
     
     async createNewArticle(req, res) {

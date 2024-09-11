@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="/style/app.css">
+</head>
+<body>   
+    <main>
+        <h1>Manage Articles</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Published</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each articles}}
+                    <tr>
+                        <td>{{this.name}}</td>
+                        <td>{{this.published}}</td>
+                        <td>
+                            <a href="/admin/article/edit/{{this.id}}" class="button">Edit</a>
+                            <form method="post" action="/admin/article/delete/{{this.id}}" style="display:inline;">
+                                <button type="submit" class="button danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+
+        <p><a href="/admin/article/create" class="button">Create a New Article</a></p>
+    </main>
+</body>
+</html>

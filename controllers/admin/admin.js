@@ -4,6 +4,12 @@ const articleModel = new articleDbModel()
 
 class articleAdminController extends ArticleController{
 
+    async getAllArticles() {
+        return await articleModel.findAll(); 
+    }
+    async getArticleById(id) {
+        return await articleModel.findById(id); 
+    }
     async createNewArticle(req, res) {
         const newArticle = {
             name: req.body.name,

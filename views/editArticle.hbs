@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Article</title>
+    <link rel="stylesheet" type="text/css" href="/style/app.css">
+</head>
+<body>
+   
+    <main>
+        <h1>Edit Article</h1>
+        <form method="post" action="/admin/article/edit/{{article.id}}">
+            <label for="name">Name</label>
+            <input type="text" name="name" id="name" value="{{article.name}}">
+
+            <label for="slug">Slug</label>
+            <input type="text" name="slug" id="slug" value="{{article.slug}}">
+
+            <label for="image">Image</label>
+            <input type="text" name="image" id="image" value="{{article.image}}">
+
+            <label for="body">Body</label>
+            <textarea name="body" id="body">{{article.body}}</textarea>
+
+            <button type="submit">Update Article</button>
+        </form>
+
+        <h2>Delete Article</h2>
+        <form method="post" action="/admin/article/delete/{{article.id}}">
+            <button type="submit" class="button danger">Delete Article</button>
+        </form>
+    </main>
+</body>
+</html>
