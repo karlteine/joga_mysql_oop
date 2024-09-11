@@ -5,7 +5,8 @@ const app = express();
 app.use(express.json());
 
 const articleRoutes = require('./routes/articles');
-const authorRoutes = require('./routes/authors');  
+const authorRoutes = require('./routes/authors');
+const adminRoutes = require('./routes/admin')  
 
 app.use(express.urlencoded({ extended: true }));
 
@@ -17,7 +18,8 @@ app.use(sessions({
 }))
 
 app.use('/', articleRoutes); 
-app.use('/author', authorRoutes);     
+app.use('/author', authorRoutes);
+app.use('/', adminRoutes);    
 
 const userRoutes = require('./routes/users')
 app.use('/', userRoutes)
